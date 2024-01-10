@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script async src="https://umami.shounak.in/script.js" data-website-id="ef3e760b-4590-46fd-8682-931560596ef0"></script>
+    <script async src="https://umami.shounak.in/script.js" data-website-id="36d982b7-3725-4fa6-adf2-563c381e2239"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <link rel="icon" type="image/png"
         href="https://cdn-cloudflare.shounak.in/a-logo-with-a-very-funny-lama-logo.png">
@@ -130,6 +130,96 @@ font-family: 'Arial', sans-serif;
         document.getElementById("current-year").textContent = currentYear;
     </script>
 
-    <script src="script.js"></script>
+    <script>
+    
+        // --------------- CONFIG --------------- //
+        // modify URL to your API
+        let apiUrl = "https://chatapi.shounak.in"
+        
+        // ----------- END OF CONFIG ------------ //
+        let uuid = '';
+    
+        function setApiUrl() {
+          const customUrl = prompt("Enter custom API URL: ");
+          if (customUrl) {
+            apiUrl = customUrl;
+          }
+        }
+    
+        function setIDsession() {
+          const customUUID = prompt("Enter custom session ID: ");
+          if (customUUID) {
+            uuid = customUUID;
+          }
+        }
+        
+        function generateUUID() {
+          let newUUID = '';
+          const chars = 'abcdef0123456789';
+          for (let i = 0; i < 32; i++) {
+            const charIndex = Math.floor(Math.random() * chars.length);
+            newUUID += chars[charIndex];
+            if (i === 7 || i === 11 || i === 15 || i === 19) {
+              newUUID += '-';
+            }
+          }
+          return newUUID;
+        }
+        const chatForm = document.getElementById('chatForm');
+        const inputField = document.getElementById('input');
+        const responseDiv = document.getElementById('response');
+    
+        function chat() {
+          var input = inputField.value;
+          input = encodeURIComponent(input)
+    
+          const userMessageDiv = document.createElement('div');
+          userMessageDiv.className = 'user-message';
+          userMessageDiv.innerText = decodeURIComponent(input);
+          responseDiv.appendChild(userMessageDiv);
+    
+          const loadingDiv = document.createElement('div');
+          loadingDiv.className = 'loading';
+          loadingDiv.innerHTML = `<svg width="30" height="30" viewBox="0 0 50 50"><circle cx="25" cy="25" r="20" stroke="black" stroke-width="4" fill="none" /><circle cx="25" cy="25" r="20" stroke="#3498db" stroke-width="4" fill="none" stroke-dasharray="90" stroke-dashoffset="0"><animateTransform attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="1s" repeatCount="indefinite"/></circle></svg><center class="smaller">If you recive an error than wait 1-2 minutes refresh and try again.</center>`;
+          responseDiv.appendChild(loadingDiv);
+    
+          axios.get(`${apiUrl}/${uuid}?q=${encodeURIComponent(input)}`)
+          .then((response) => {
+            responseDiv.removeChild(loadingDiv);
+    
+            const aiMessages = response.data[0].response.filter(message => message.role === 'system' && message.content.response);
+            if (aiMessages.length > 0) {
+              const lastAiMessage = aiMessages[aiMessages.length - 1];
+              const aiMessageDiv = document.createElement('div');
+              aiMessageDiv.className = 'ai-message';
+              aiMessageDiv.innerHTML = marked.parse(lastAiMessage.content.response);
+              responseDiv.appendChild(aiMessageDiv);
+            }
+    
+            inputField.value = '';
+          })
+          .catch((error) => {
+            console.log("Error receiving response:", error);
+          });
+        }
+    
+        chatForm.addEventListener('submit', (event) => {
+          event.preventDefault();
+          chat()
+        });
+    
+        inputField.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter') {
+            if (!event.shiftKey) {
+              event.preventDefault();
+              chat()
+            }
+          }
+        });
+        
+        if (!uuid) {
+          uuid = generateUUID();
+        }
+    </script>
 </body>
 </html>
