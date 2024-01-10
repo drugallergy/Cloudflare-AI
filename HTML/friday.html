@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script async src="https://umami.shounak.in/script.js" data-website-id="ef3e760b-4590-46fd-8682-931560596ef0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="icon" type="image/png"
+        href="https://cdn-cloudflare.shounak.in/a-logo-with-a-very-funny-lama-logo.png">
+    <title>Friday The Ai Assistant | Ask Friday | llama2 7B</title>
+    <meta name="robots" content="index, follow">
+    <style>
+
+/* styles.css */
+.body {
+    margin: 0 auto;
+    height: 100svh;
+    max-width: 700px;
+    justify-content: center;
+    margin: 0 auto;
+    backdrop-filter: blur(10px);
+}
+.user-message {
+    background-color: #a8cdeb;
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-left: 10%;
+    max-width: 90% !important;
+    width: auto !important;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.ai-message {
+    background-color: #fafada;
+    padding: 10px;
+    margin-bottom: 15px;
+    margin-right: 10%;
+    max-width: 90%;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
+}
+      .description-box {
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
+        padding: 8px;
+      }
+      .cont {
+        min-height: 450px;
+      }
+      .txt {
+        right: 5px;
+      }
+      
+      .footer {
+background: #fff;
+color: #007bff;
+margin: 0 auto;
+text-align: center;
+padding: 5px;        
+bottom: 2px;
+max-width: 700px;
+box-sizing: border-box;
+font-size: 13px;
+font-family: 'Arial', sans-serif;
+}
+.footer-content {
+max-width: 600px;
+text-align: center;
+margin: 0 auto;
+font-size: 14px;
+font-family: 'Arial', sans-serif;
+color: #007bff;
+}
+
+.footer a {
+color: #7a00ff;
+text-decoration: none;
+font-size: 14px;
+font-family: 'Arial', sans-serif;
+}
+
+  </style>
+</head>
+
+<body class="bg-gray-100 p-4 body font-sans">
+
+    <div class="max-w-2xl mx-auto p-8 bg-white rounded-lg shadow-md mt-8 cont">
+
+        <div class="flex items-center">
+
+            <h1 class="text-4xl font-bold ml-4">Ask Friday-Stable Mode</h1>
+          
+        </div>
+
+        <div class="description-box mt-4">
+            <p class="text-sm">Friday. She is a funny AI chat bot. To learn more about her, just ask her. She is very nice btw. And Don't forget to Visit <a href="https://smartgoat.me/"><span style="color: violet; font-weight:bold;">The SmartGoat Blog</span></a>- Shounak</p>
+        </div>
+
+        <div class="mt-4" id="response"></div>
+
+        <form id="chatForm" class="mt-4">
+            <div class="flex items-center txt">
+                <textarea id="input" class="w-2/3 px-4 py-2 rounded-lg bg-blue-200 text-black"
+                    placeholder="Ask the overlord"></textarea>
+                <button type="submit"
+                    class="ml-2 px-4 py-2 bg-gradient-to-r from-yellow-400 to-red-500 text-white rounded-lg button-85">➤</button>
+            </div>
+        </form>
+        </div>
+  </div>
+  <br>
+  <br>
+  <br>
+  <div class="footer mt-4">
+            <div class="footer-content">
+                <p class="text-sm">&copy; <span id="current-year"></span> <a href="https://shounak.in/"
+                        target="_blank" rel="noopener noreferrer" class="text-blue-400">Shounak Pal</a> | <a
+                        href="https://smartgoat.me/" target="_blank" rel="noopener noreferrer"
+                        class="text-blue-400">The SmartGoat Blog</a></p>
+            </div>
+
+    <script type="text/javascript">
+        var currentYear = new Date().getFullYear();
+        document.getElementById("current-year").textContent = currentYear;
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>
